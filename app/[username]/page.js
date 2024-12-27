@@ -4,7 +4,7 @@ export default async function Page({
     params,
   }){
     const parameters = await params
-    const response  = await fetch(`https://d2nhq8z9s6rglr.cloudfront.net/userinfo/${parameters.username}`)
+    const response  = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}userinfo/${parameters.username}`)
     const data = await response.json()
     return(
         <div>

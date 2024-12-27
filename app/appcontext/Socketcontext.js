@@ -12,7 +12,7 @@ export const SocketProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false)
 
   useEffect(() => {
-    const newSocket = io('https://d2nhq8z9s6rglr.cloudfront.net/')
+    const newSocket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL}`)
 
     newSocket.on('connect', () => {
       setIsConnected(true)
