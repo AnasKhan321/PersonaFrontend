@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { Send, User } from 'lucide-react'
 import { useSocket } from '../appcontext/Socketcontext'
+import { ReactTyped } from "react-typed";
+
 
 export default function Chat(data) {
   const [message, setMessage] = useState('')
@@ -35,9 +37,11 @@ export default function Chat(data) {
         <div className="bg-gray-800 rounded-lg p-4 h-[75vh] max-h-[75vh]  overflow-y-scroll mb-4">
           {chatHistory.map((msg, index) => (
             <div key={index} className={`mb-4 ${msg.sender === 'You' ? 'text-right' : ''}`}>
+
+              {msg.sender === "You" ? 
               <span className={`inline-block p-2 rounded-lg ${msg.sender === 'You' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-100'}`}>
                 {msg.content}
-              </span>
+              </span>  : <div className='bg-gray-700 text-gray-100 p-2 rounded-md '>  <ReactTyped strings={[msg.content]} typeSpeed={10}   loop={false}/> </div>  }
             </div>
           ))}
         </div>

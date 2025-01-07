@@ -11,7 +11,7 @@ export default async function Page({
 
             <div className="flex justify-center items-center  gap-x-2  mt-5 ">
                 <img src={data.data.image} className="rounded-full "/>
-                <p> {data.data.name} </p>
+                <p className="font-bold text-white text-xl"> @{parameters.username} </p>
             </div>
             <Chat username={parameters.username}/> 
 
@@ -21,3 +21,5 @@ export default async function Page({
 
 
   }
+
+ 
