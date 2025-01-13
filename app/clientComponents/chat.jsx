@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react'
 import { Send, User } from 'lucide-react'
 import { useSocket } from '../appcontext/Socketcontext'
 import { ReactTyped } from "react-typed";
-
+import {BeatLoader} from "react-spinners"
 
 export default function Chat(data) {
   const [message, setMessage] = useState('')
   const [chatHistory, setChatHistory] = useState([])
   const {socket} = useSocket()
+  const [loading , setloading]  = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,12 +19,13 @@ export default function Chat(data) {
       setChatHistory((prev) => [...prev, { sender: 'user', content: message }]);
       console.log(chatHistory)
       socket.emit("message", JSON.stringify({ username: data.username, question: message   , messages : chatHistory}));
-      
+      setloading(true)
       setMessage('');
   
       socket.once("send:message", (data) => {
         const pdata = JSON.parse(data);
         console.log(pdata);
+        setloading(false)
         setChatHistory((prev) => [...prev, { sender: "assistant", content: pdata.message }]);
       });
     }
@@ -44,6 +46,10 @@ export default function Chat(data) {
               </span>  : <div className='bg-gray-700 text-gray-100 p-2 rounded-md '>  <ReactTyped strings={[msg.content]} typeSpeed={10}   loop={false}/> </div>  }
             </div>
           ))}
+          {loading &&  <div className='flex justify-center '> <BeatLoader
+  color="#aeb4bb"
+  speedMultiplier={0.7}
+/> </div>   }
         </div>
 
         <form onSubmit={handleSubmit} className="flex">
