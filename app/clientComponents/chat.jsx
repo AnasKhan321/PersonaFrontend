@@ -8,7 +8,7 @@ import {BeatLoader} from "react-spinners"
 
 export default function Chat(data) {
   const [message, setMessage] = useState('')
-  const [chatHistory, setChatHistory] = useState([])
+  const [chatHistory, setChatHistory] = useState([{sender : "assistant" , content : data.text }])
   const {socket} = useSocket()
   const [loading , setloading]  = useState(false)
 
@@ -30,6 +30,10 @@ export default function Chat(data) {
       });
     }
   };
+
+
+
+
   
   return (
     <div className="container mx-auto px-4 py-8">
